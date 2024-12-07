@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="You are on a spaceship on your way to another planet, but you are stopped by asteroids and aliens. How long can you last?"
+    />
+    <title>Galactic Drift</title>
+    <link rel="icon" type="image/x-icon" href="./Public/Icon/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/keyboard-css@1.2.4/dist/css/main.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes disappear {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      #interface {
+        animation: disappear 4s linear 1 forwards;
+      }
+    </style>
+  </head>
+  <body class="overflow-hidden m-0 p-0 bg-black text-white font-[Jura]">
+    <div
+      id="interface"
+      class="btns fixed top-0 left-1/2 transform -translate-x-1/2 mt-8 text-center hidden"
+    >
+      <div class="w mb-4">
+        <kbd class="kbc-button w-[35px] h-[35px]">W</kbd>
+      </div>
+      <div class="row flex gap-4 mb-4 justify-center">
+        <kbd class="kbc-button w-[35px] h-[35px]">A</kbd>
+        <kbd class="kbc-button w-[35px] h-[35px]">S</kbd>
+        <kbd class="kbc-button w-[35px] h-[35px]">D</kbd>
+      </div>
+      <p class="text-white mb-[40px]">To Move</p>
+      <kbd class="kbc-button mb-4 w-[250px] text-center">Spacebar</kbd>
+      <p class="text-white">To Shoot</p>
+    </div>
+    <div id="score-wrapper" class="fixed hidden text-4xl p-5">
+      Score: <span id="score-el">0</span>
+    </div>
+    <div id="distance-wrapper" class="fixed hidden text-4xl p-5 top-[40px]">
+      Distance Travelled: <span id="distance-el">0</span>
+    </div>
+    <div id="healthbar" class="hidden">
+      <div
+        id="healthbar1"
+        class="w-[200px] h-[8px] bg-red-600 fixed rounded z-1"
+      >
+        <div
+          id="healthbar2"
+          class="w-[200px] h-[8px] bg-green-600 fixed rounded z-1"
+        ></div>
+      </div>
+    </div>
+    <!-- #FF0A0A -->
+    <div
+      id="start-game"
+      class="fixed top-1/2 left-1/2 w-[850px] h-[500px] bg-gray-900 transform -translate-x-1/2 -translate-y-1/2 rounded border-2 border-[#FF0A0A] border-opacity-75 bg-opacity-75"
+    >
+      <img
+        src="./Public/Logo/logo.png"
+        alt="Logo that says Galactic Drift, the name of the game."
+        class="my-[75px] mx-auto"
+      />
+      <button
+        id="start-game-btn"
+        class="bg-[#DD0808] text-4xl rounded p-3 w-1/2 mx-auto my-[125px] block font-bold"
+      >
+        Start Game
+      </button>
+    </div>
+    <div
+      id="game-over"
+      class="fixed top-1/2 left-1/2 w-[850px] h-[500px] bg-gray-900 transform -translate-x-1/2 -translate-y-1/2 rounded border-2 border-[#FF0A0A] border-opacity-75 bg-opacity-75 hidden"
+    >
+      <h1 class="text-6xl text-center mt-10">
+        Your score: <span id="final-score-el">0</span>
+      </h1>
+      <h1 class="text-6xl text-center mt-14">
+        Distance: <span id="final-distance-el">0</span>
+      </h1>
+      <button
+        id="restart-game-btn"
+        class="bg-[#DD0808] text-4xl rounded p-3 w-1/2 mx-auto my-[125px] block font-bold"
+      >
+        Restart Game
+      </button>
+    </div>
+    <canvas id="canvas"></canvas>
+    <img src="./Public/Ufo/1.png" alt="" id="ufo1" class="hidden" />
+    <img src="./Public/Ufo/2.png" alt="" id="ufo2" class="hidden" />
+    <img src="./Public/Ufo/3.png" alt="" id="ufo3" class="hidden" />
+    <img src="./Public/Ufo/4.png" alt="" id="ufo4" class="hidden" />
+    <img src="./Public/Ufo/5.png" alt="" id="ufo5" class="hidden" />
+    <img src="./Public/Ufo/6.png" alt="" id="ufo6" class="hidden" />
+    <img src="./Public/Ufo/7.png" alt="" id="ufo7" class="hidden" />
+    <img src="./Public/Ufo/8.png" alt="" id="ufo8" class="hidden" />
+    <img src="./Public/Ufo/9.png" alt="" id="ufo9" class="hidden" />
+    <img src="./Public/Ufo/10.png" alt="" id="ufo10" class="hidden" />
+    <img src="./Public/Ufo/11.png" alt="" id="ufo11" class="hidden" />
+    <img src="./Public/Ufo/12.png" alt="" id="ufo12" class="hidden" />
+    <img src="./Public/Ufo/13.png" alt="" id="ufo13" class="hidden" />
+    <img src="./Public/Ufo/14.png" alt="" id="ufo14" class="hidden" />
+    <img src="./Public/Ufo/15.png" alt="" id="ufo15" class="hidden" />
+    <img src="./Public/Ufo/16.png" alt="" id="ufo16" class="hidden" />
+    <img src="./Public/Ufo/17.png" alt="" id="ufo17" class="hidden" />
+    <img src="./Public/Ufo/18.png" alt="" id="ufo18" class="hidden" />
+    <img src="./Public/Ufo/19.png" alt="" id="ufo19" class="hidden" />
+    <img src="./Public/Ufo/20.png" alt="" id="ufo20" class="hidden" />
+    <img src="./Public/Player/player.png" alt="" id="player" class="hidden" />
+    <img src="./Public/Player/flame1.png" alt="" id="flame1" class="hidden" />
+    <img src="./Public/Player/flame2.png" alt="" id="flame2" class="hidden" />
+    <img
+      src="./Public/Background/layer1.png"
+      alt=""
+      id="layer1"
+      class="hidden"
+    />
+    <img
+      src="./Public/Background/layer2.png"
+      alt=""
+      id="layer2"
+      class="hidden"
+    />
+    <img
+      src="./Public/Background/layer3.png"
+      alt=""
+      id="layer3"
+      class="hidden"
+    />
+    <img
+      src="./Public/Background/layer4.png"
+      alt=""
+      id="layer4"
+      class="hidden"
+    />
+    <img
+      src="./Public/Background/layer5.png"
+      alt=""
+      id="layer5"
+      class="hidden"
+    />
+    <img
+      src="./Public/Asteroid/asteroid.png"
+      alt=""
+      id="asteroid"
+      class="hidden"
+    />
+    <img
+      src="./Public/Player/projectile.png"
+      alt=""
+      id="projectile"
+      class="hidden"
+    />
+    <script src="./script.js"></script>
+  </body>
+</html>
